@@ -1,37 +1,39 @@
 esphome:
-  name: hlk-presence
-  friendly_name: hlk-presence
+  name: ld2450
+  friendly_name: ld2450
+
+mqtt:
+  broker: 
+  discovery: false
+  log_topic: null
+
+web_server:
+  port: 80
+
+ota:
 
 external_components:
   - source:
       type: git
-      url: https://github.com/uncle-yura/esphome-ld2450
+      url: https://github.com/mr-old-youtube/ld2450
       ref: master
     components: [ ld2450 ]
 
 esp8266:
-  board: d1_mini
+  board: sonoff_basic
 
 # Enable logging
-logger:
-  baud_rate: 0
+#logger:
+  #baud_rate: 0
 
-# Enable Home Assistant API
-api:
-  encryption:
-    key: "your-encryption-key"
-
-ota:
-  password: "your-ota-password"
 
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "your-sensor-hotspot"
-    password: "your-password"
+    ssid: "Ld2450-mrold"
+    password: "12345679"
+
 
 captive_portal:   
 
@@ -60,7 +62,7 @@ binary_sensor:
   has_still_target:
     name: Still Target
   presence_regions:
-    - name: "Custom Presence Region 0"
+    - name: "Zone1 0"
       region_id: presence_region_0
 
 text_sensor:
@@ -69,6 +71,9 @@ text_sensor:
       name: "FW"
     mac_address:
       name: "MAC address"
+  - platform: wifi_info
+    ip_address:
+      name: ESP IP Address
 
 button:
   - platform: restart
@@ -94,12 +99,18 @@ number:
     name: "Rotate angle"
   presence_timeout:
     name: "Presence timeout"
+    min_value: 0
+    max_value: 600
+    mode: box
+    icon: mdi:timer-off
+    step: 1
   presence_regions:
-    - x0: 100
-      y0: 100
-      x1: 200
-      y1: 200
+    - x0: -253
+      y0: 32
+      x1: 233
+      y1: 581
       id: presence_region_0
+
   entry_points:
     - x: 0
       y: 0
