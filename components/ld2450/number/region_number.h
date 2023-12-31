@@ -12,7 +12,7 @@ class RegionNumber : public number::Number, public Parented<LD2450> {
 
     protected:
         uint8_t region_;
-        void control(float value) override;
+        void control(auto value) override;
 };
 
 }  // namespace ld2450
